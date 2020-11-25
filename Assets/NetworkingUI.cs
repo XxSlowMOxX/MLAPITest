@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MLAPI;
 using MLAPI.Transports.UNET;
+using MLAPI.SceneManagement;
 
 public class NetworkingUI : MonoBehaviour
 {
@@ -12,6 +13,12 @@ public class NetworkingUI : MonoBehaviour
     {
         if(NetworkingManager.Singleton.IsServer|| NetworkingManager.Singleton.IsConnectedClient|| NetworkingManager.Singleton.IsHost)
         {
+            if (NetworkingManager.Singleton.IsHost)
+            {
+                if(GUI.Button(new Rect(10, 10, 200, 25),"Next Level")) {
+                    NetworkSceneManager.SwitchScene("testScene");
+                }
+            }
             return;
         }
         else //If neither Server Client nor Host e.g. not Connected
@@ -30,4 +37,5 @@ public class NetworkingUI : MonoBehaviour
             }
         } 
     }
+    
 }
