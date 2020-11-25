@@ -26,7 +26,7 @@ public class NetworkingUI : MonoBehaviour
             {
                 NetworkingManager.Singleton.GetComponent<UnetTransport>().ConnectAddress = adress;
                 NetworkingManager.Singleton.GetComponent<UnetTransport>().ConnectPort = int.Parse(port);
-                NetworkingManager.Singleton.StartClient();
+                NetworkingManager.Singleton.StartClient(); //This Comment is to test the new .Gitignore
             }
         } 
     }
