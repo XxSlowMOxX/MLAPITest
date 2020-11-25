@@ -216,8 +216,8 @@ GameObject:
   m_Component:
   - component: {fileID: 576663800}
   - component: {fileID: 576663799}
-  - component: {fileID: 576663802}
   - component: {fileID: 576663803}
+  - component: {fileID: 576663801}
   m_Layer: 0
   m_Name: NetManager
   m_TagString: Untagged
@@ -242,7 +242,7 @@ MonoBehaviour:
   LogLevel: 0
   NetworkConfig:
     ProtocolVersion: 0
-    NetworkTransport: {fileID: 576663802}
+    NetworkTransport: {fileID: 576663801}
     RegisteredScenes:
     - SampleScene
     AllowRuntimeSceneChanges: 0
@@ -291,7 +291,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &576663802
+--- !u!114 &576663801
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -326,3 +326,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c22ebe6b5c42543a5f94f4209bf813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  adress: 192.168.178.78
+  port: 7777

@@ -10,18 +10,24 @@ public class NetworkingUI : MonoBehaviour
     public string port = "7777";
     void OnGUI()
     {
-        adress = GUI.TextField(new Rect(10, 70, 125, 25), adress);
-        port = GUI.TextField(new Rect(135, 70, 75, 25), port);
-        if (GUI.Button(new Rect(10, 10, 200, 25), "Host Server"))
+        if(NetworkingManager.Singleton.IsServer|| NetworkingManager.Singleton.IsConnectedClient|| NetworkingManager.Singleton.IsHost)
         {
-            NetworkingManager.Singleton.StartHost();
+            return;
         }
-        if (GUI.Button(new Rect(10, 40, 200, 25), "Join Server"))
+        else //If neither Server Client nor Host e.g. not Connected
         {
-            NetworkingManager.Singleton.GetComponent<UnetTransport>().ConnectAddress = adress;
-            NetworkingManager.Singleton.GetComponent<UnetTransport>().ConnectPort = int.Parse(port);
-            NetworkingManager.Singleton.StartClient();
-        }
-
+            adress = GUI.TextField(new Rect(10, 70, 125, 25), adress);
+            port = GUI.TextField(new Rect(135, 70, 75, 25), port);
+            if (GUI.Button(new Rect(10, 10, 200, 25), "Host Server"))
+            {
+                NetworkingManager.Singleton.StartHost();
+            }
+            if (GUI.Button(new Rect(10, 40, 200, 25), "Join Server"))
+            {
+                NetworkingManager.Singleton.GetComponent<UnetTransport>().ConnectAddress = adress;
+                NetworkingManager.Singleton.GetComponent<UnetTransport>().ConnectPort = int.Parse(port);
+                NetworkingManager.Singleton.StartClient();
+            }
+        } 
     }
 }
