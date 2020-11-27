@@ -4,8 +4,10 @@ using UnityEngine;
 using MLAPI;
 using MLAPI.Transports.UNET;
 using MLAPI.SceneManagement;
+using MLAPI.Connection;
+using MLAPI.NetworkedVar;
 
-public class NetworkingUI : MonoBehaviour
+public class NetworkingUI : NetworkedBehaviour
 {
     public string adress = "127.0.0.1";
     public string port = "7777";
@@ -17,6 +19,10 @@ public class NetworkingUI : MonoBehaviour
             {
                 if(GUI.Button(new Rect(10, 10, 200, 25),"Next Level")) {
                     NetworkSceneManager.SwitchScene("testScene");
+                }
+                int i = 0;
+                foreach (KeyValuePair<ulong,NetworkedClient> entry in NetworkingManager.Singleton.ConnectedClients) {
+                    GUI.Label(new Rect(10, 40 + (i * 30), 200, 25), entry.Value.ClientId.ToString()); i++;
                 }
             }
             return;
@@ -36,6 +42,5 @@ public class NetworkingUI : MonoBehaviour
                 NetworkingManager.Singleton.StartClient(); //This Comment is to test the new .Gitignore
             }
         } 
-    }
-    
+    }     
 }
