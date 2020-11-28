@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MLAPI;
+using MLAPI.Connection;
 
 public class dumbMovement : NetworkedBehaviour
 {
@@ -11,6 +12,7 @@ public class dumbMovement : NetworkedBehaviour
         {
             this.transform.position += new Vector3(0,Input.GetAxis("Vertical")) * 0.05f;
             this.transform.position += new Vector3(Input.GetAxis("Horizontal"), 0) * 0.05f;
+            //this.GetComponent<Trac>
         }
     }
 }
