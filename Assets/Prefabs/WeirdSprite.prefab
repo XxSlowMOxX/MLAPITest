@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1057199516606500295}
   - component: {fileID: 9079044495078146914}
   - component: {fileID: 1214958916689501240}
+  - component: {fileID: 2359596727534912517}
   m_Layer: 0
   m_Name: WeirdSprite
   m_TagString: Untagged
@@ -111,5 +112,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68d2d5034380f87498e8e071b38f15cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2359596727534912517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823613927596844026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1977919129, guid: 01701b64234b4d523d8045142cbc73fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
