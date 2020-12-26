@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9079044495078146914}
   - component: {fileID: 1214958916689501240}
   - component: {fileID: 8950599655243247296}
+  - component: {fileID: 1425347115597848859}
   m_Layer: 0
   m_Name: WeirdSprite
   m_TagString: Untagged
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -162,3 +163,17 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1425347115597848859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823613927596844026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e656fca498f574bb639139169b9fde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  place: 1
+  gridSize: 1
