@@ -177,3 +177,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   place: 1
   gridSize: 1
+  buildingsLeft: 1
+  myPrefab: {fileID: 2608052528253481164, guid: 08f998c1c4e970c44a44de56e3ec580f, type: 3}
