@@ -11,6 +11,11 @@ public class NetworkingUI : NetworkedBehaviour
 {
     public string adress = "127.0.0.1";
     public string port = "7777";
+    private NetworkManager nm;
+    void Start()
+    {
+        nm = this.GetComponent<NetworkManager>();
+    }
     void OnGUI()
     {
         if(NetworkingManager.Singleton.IsServer|| NetworkingManager.Singleton.IsConnectedClient|| NetworkingManager.Singleton.IsHost)
@@ -33,7 +38,8 @@ public class NetworkingUI : NetworkedBehaviour
             port = GUI.TextField(new Rect(135, 70, 75, 25), port);
             if (GUI.Button(new Rect(10, 10, 200, 25), "Host Server"))
             {
-                NetworkingManager.Singleton.StartHost();
+                nm.HostSetup();
+                NetworkingManager.Singleton.StartHost();                
             }
             if (GUI.Button(new Rect(10, 40, 200, 25), "Join Server"))
             {
