@@ -38,8 +38,7 @@ public class NetworkingUI : NetworkedBehaviour
             port = GUI.TextField(new Rect(135, 70, 75, 25), port);
             if (GUI.Button(new Rect(10, 10, 200, 25), "Host Server"))
             {
-                nm.HostSetup();
-                NetworkingManager.Singleton.StartHost();                
+                nm.HostServer();               
             }
             if (GUI.Button(new Rect(10, 40, 200, 25), "Join Server"))
             {

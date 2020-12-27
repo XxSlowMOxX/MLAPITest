@@ -6,22 +6,19 @@ using MLAPI.Spawning;
 using System;
 
 public class NetworkManager : NetworkedBehaviour
-{ 
-    // Start is called before the first frame update
-    void Start()
+{
+    public int connectedClientNo = 0;
+    public void HostServer()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void HostSetup()
-    {
+        print("Host Server Called");
         NetworkingManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
+        NetworkingManager.Singleton.OnClientConnectedCallback += ConnectCallback;
+        NetworkingManager.Singleton.StartHost();
+    }
+
+    private void ConnectCallback(ulong obj)
+    {
+        print(obj);
     }
 
     private void ApprovalCheck(byte[] connectionData, ulong clientId, MLAPI.NetworkingManager.ConnectionApprovedDelegate callback)
