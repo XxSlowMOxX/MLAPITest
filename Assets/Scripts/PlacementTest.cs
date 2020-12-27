@@ -3,7 +3,7 @@ using MLAPI.Messaging;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class PlacementTest : NetworkedBehaviour
 {
@@ -16,7 +16,7 @@ public class PlacementTest : NetworkedBehaviour
     {
         if(NetworkedObject.IsLocalPlayer && place)
         {
-            Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 pos = GetComponentInChildren<Camera>().ScreenToWorldPoint(Input.mousePosition);
             posMod = new Vector3(Snapping.Snap(pos.x, gridSize), Snapping.Snap(pos.y, gridSize));
             if (Input.GetMouseButtonDown(0) && buildingsLeft > 0)
             {
@@ -37,6 +37,7 @@ public class PlacementTest : NetworkedBehaviour
     {
         GameObject gO = Instantiate(myPrefab, posi, Quaternion.identity);
         gO.GetComponent<NetworkedObject>().Spawn();
+        SceneManager.MoveGameObjectToScene(gO, SceneManager.GetActiveScene());
     }
 
     void OnDrawGizmos()

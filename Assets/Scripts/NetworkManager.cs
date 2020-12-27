@@ -18,7 +18,7 @@ public class NetworkManager : NetworkedBehaviour
 
     private void ConnectCallback(ulong obj)
     {
-        print(obj);
+        print("TEST");
     }
 
     private void ApprovalCheck(byte[] connectionData, ulong clientId, MLAPI.NetworkingManager.ConnectionApprovedDelegate callback)

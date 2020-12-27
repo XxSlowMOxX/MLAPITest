@@ -6,6 +6,13 @@ using MLAPI.Connection;
 
 public class dumbMovement : NetworkedBehaviour
 {
+    private void Start()
+    {
+        if (NetworkedObject.IsLocalPlayer)
+        {
+            DestroyImmediate(Camera.main.gameObject);
+        }
+    }
     void Update()
     {
         if (NetworkedObject.IsLocalPlayer)
