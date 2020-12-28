@@ -4,10 +4,19 @@ using UnityEngine;
 using MLAPI;
 using MLAPI.Spawning;
 using System;
+using UnityEngine.SceneManagement;
 
 public class NetworkManager : NetworkedBehaviour
 {
     public int connectedClientNo = 0;
+    private Scene menuScene;
+
+    void Start()
+    {
+        menuScene = SceneManager.GetActiveScene();
+        print("Start");
+    }
+
     public void HostServer()
     {
         print("Host Server Called");
@@ -25,6 +34,13 @@ public class NetworkManager : NetworkedBehaviour
     {
         print("TEST");
         ulong? prefabHash = SpawnManager.GetPrefabHashFromGenerator("WeirdSprite");
-        callback(true, prefabHash, true, Vector3.zero, Quaternion.identity);
+        if(SceneManager.GetActiveScene() == menuScene)
+        {
+            callback(true, prefabHash, true, Vector3.zero, Quaternion.identity);
+        }
+        else
+        {
+            print("Connection refused because Scene was not Sample Scene");
+        }        
     }
 }

@@ -261,7 +261,7 @@ MonoBehaviour:
     EventTickrate: 64
     MaxObjectUpdatesPerTick: -1
     ClientConnectionBufferTimeout: 10
-    ConnectionApproval: 0
+    ConnectionApproval: 1
     ConnectionData: 
     SecondsHistory: 5
     EnableTimeResync: 0
@@ -330,6 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78d89389a196b64badf0b7c1342cdf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  connectedClientNo: 0
 --- !u!114 &576663803
 MonoBehaviour:
   m_ObjectHideFlags: 0
