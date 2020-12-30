@@ -42,9 +42,7 @@ public class NetworkingUI : NetworkedBehaviour
             }
             if (GUI.Button(new Rect(10, 40, 200, 25), "Join Server"))
             {
-                NetworkingManager.Singleton.GetComponent<UnetTransport>().ConnectAddress = adress;
-                NetworkingManager.Singleton.GetComponent<UnetTransport>().ConnectPort = int.Parse(port);
-                NetworkingManager.Singleton.StartClient(); //This Comment is to test the new .Gitignore
+                nm.StartClient(adress, port);
             }
         } 
     }     

@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using MLAPI;
 using MLAPI.Spawning;
+using MLAPI.Connection;
 using System;
 using UnityEngine.SceneManagement;
+using MLAPI.Transports.UNET;
 
 public class NetworkManager : NetworkedBehaviour
 {
     public int connectedClientNo = 0;
     private Scene menuScene;
+    [SerializeField]
+    public List<Player> playerList = new List<Player>();
 
     void Start()
     {
@@ -22,11 +26,21 @@ public class NetworkManager : NetworkedBehaviour
         NetworkingManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
         NetworkingManager.Singleton.OnClientConnectedCallback += ConnectCallback;
         NetworkingManager.Singleton.StartHost();
+        playerList.Add(new Player((Teams)(connectedClientNo % 2), 0));
+        connectedClientNo += 1;
+    }
+
+    public void StartClient(string adress, string port)
+    {
+        NetworkingManager.Singleton.OnClientConnectedCallback += ConnectCallback;
+        NetworkingManager.Singleton.GetComponent<UnetTransport>().ConnectAddress = adress;
+        NetworkingManager.Singleton.GetComponent<UnetTransport>().ConnectPort = int.Parse(port);
+        NetworkingManager.Singleton.StartClient();
     }
 
     private void ConnectCallback(ulong obj)
     {
-        print("TEST");
+        print("TTTT");
     }
 
     private void ApprovalCheck(byte[] connectionData, ulong clientId, MLAPI.NetworkingManager.ConnectionApprovedDelegate callback)
@@ -36,6 +50,8 @@ public class NetworkManager : NetworkedBehaviour
         if(SceneManager.GetActiveScene() == menuScene)
         {
             callback(true, prefabHash, true, Vector3.zero, Quaternion.identity);
+            playerList.Add(new Player((Teams)(connectedClientNo % 2), clientId));
+            connectedClientNo += 1;
         }
         else
         {
