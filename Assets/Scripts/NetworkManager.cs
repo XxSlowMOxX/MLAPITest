@@ -13,7 +13,7 @@ public class NetworkManager : NetworkedBehaviour
     public int connectedClientNo = 0;
     private Scene menuScene;
     [SerializeField]
-    public List<Player> playerList = new List<Player>();
+    public Dictionary<ulong, Player> playerList = new Dictionary<ulong, Player>();
 
     void Start()
     {
@@ -26,7 +26,7 @@ public class NetworkManager : NetworkedBehaviour
         NetworkingManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
         NetworkingManager.Singleton.OnClientConnectedCallback += ConnectCallback;
         NetworkingManager.Singleton.StartHost();
-        playerList.Add(new Player((Teams)(connectedClientNo % 2), 0));
+        playerList.Add(0 ,new Player((Teams)(connectedClientNo % 2), 0));
         connectedClientNo += 1;
     }
 
@@ -50,7 +50,7 @@ public class NetworkManager : NetworkedBehaviour
         if(SceneManager.GetActiveScene() == menuScene)
         {
             callback(true, prefabHash, true, Vector3.zero, Quaternion.identity);
-            playerList.Add(new Player((Teams)(connectedClientNo % 2), clientId));
+            playerList.Add(clientId, new Player((Teams)(connectedClientNo % 2), clientId));
             connectedClientNo += 1;
         }
         else

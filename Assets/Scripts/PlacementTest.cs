@@ -1,5 +1,6 @@
 ﻿using MLAPI;
 using MLAPI.Messaging;
+using MLAPI.Connection;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,22 +24,31 @@ public class PlacementTest : NetworkedBehaviour
             {
                 if (IsServer)
                 {
-                    PlaceObject(posMod);
+                    PlaceObject(posMod, 0);
                 }
                 else
                 {
-                    InvokeServerRpc(PlaceObject, posMod);
+                    InvokeServerRpc(PlaceObject, posMod, OwnerClientId);
                 }
             }
         }
     }
 
     [ServerRPC]
-    void PlaceObject(Vector3 posi)
+    void PlaceObject(Vector3 posi, ulong ID)
     {
-        GameObject gO = Instantiate(myPrefab, posi, Quaternion.identity);
-        gO.GetComponent<NetworkedObject>().Spawn();
-        SceneManager.MoveGameObjectToScene(gO, SceneManager.GetActiveScene());
+        int playerResources = NetworkingManager.Singleton.GetComponent<NetworkManager>().playerList[ID].Resources;
+        if(playerResources > 0)
+        {
+            GameObject gO = Instantiate(myPrefab, posi, Quaternion.identity);
+            gO.GetComponent<NetworkedObject>().Spawn();
+            SceneManager.MoveGameObjectToScene(gO, SceneManager.GetActiveScene());
+            NetworkingManager.Singleton.GetComponent<NetworkManager>().playerList[ID].Resources -= 1;
+        }
+        else
+        {
+            print("Building could not be placed, get more cash");
+        }
     }
 
     void OnDrawGizmos()
