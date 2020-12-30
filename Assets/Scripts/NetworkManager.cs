@@ -14,7 +14,6 @@ public class NetworkManager : NetworkedBehaviour
     void Start()
     {
         menuScene = SceneManager.GetActiveScene();
-        print("Start");
     }
 
     public void HostServer()

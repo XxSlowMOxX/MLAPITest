@@ -12,6 +12,7 @@ public class PlacementTest : NetworkedBehaviour
     public int buildingsLeft = 1;
     public GameObject myPrefab;
     private Vector3 posMod;
+
     void Update()
     {
         if(NetworkedObject.IsLocalPlayer && place)

@@ -6,7 +6,7 @@ using MLAPI.Connection;
 
 public class dumbMovement : NetworkedBehaviour
 {
-    private void Start()
+    void Start()
     {        
         if (NetworkedObject.IsOwner)
         {    
