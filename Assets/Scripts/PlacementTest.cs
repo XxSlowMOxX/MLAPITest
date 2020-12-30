@@ -41,7 +41,7 @@ public class PlacementTest : NetworkedBehaviour
         if(playerResources > 0)
         {
             GameObject gO = Instantiate(myPrefab, posi, Quaternion.identity);
-            gO.GetComponent<NetworkedObject>().Spawn();
+            gO.GetComponent<NetworkedObject>().Spawn(null, true); //Der Bool sagt ob das Dings beim Scenenwechsel zerstört werden soll, und das sollen Gebäude werden
             SceneManager.MoveGameObjectToScene(gO, SceneManager.GetActiveScene());
             NetworkingManager.Singleton.GetComponent<NetworkManager>().playerList[ID].Resources -= 1;
         }

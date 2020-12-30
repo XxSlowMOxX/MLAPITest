@@ -26,7 +26,7 @@ public class NetworkManager : NetworkedBehaviour
         NetworkingManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
         NetworkingManager.Singleton.OnClientConnectedCallback += ConnectCallback;
         NetworkingManager.Singleton.StartHost();
-        playerList.Add(0 ,new Player((Teams)(connectedClientNo % 2), 0));
+        playerList.Add(GetComponent<UnetTransport>().ServerClientId, new Player((Teams)(connectedClientNo % 2), GetComponent<UnetTransport>().ServerClientId));
         connectedClientNo += 1;
     }
 
