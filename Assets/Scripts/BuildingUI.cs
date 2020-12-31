@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using MLAPI;
 using MLAPI.Connection;
 
@@ -8,10 +9,12 @@ public class BuildingUI : MonoBehaviour
 {
     private PlacementTest place;
     private List<Building> selectedBuildings = new List<Building>();
+    private List<GameObject> buildings = new List<GameObject>();
 
     void Start()
     {
         place = GetComponent<PlacementTest>();
+        buildings = AssetSearch.getBuildings();
     }
 
     void Update()
@@ -40,9 +43,12 @@ public class BuildingUI : MonoBehaviour
 
     void OnGUI()
     {
-        if(GUI.Button(new Rect(Screen.width - 110, Screen.height - 110, 100, 100), "Building"))
+        for (int i = 0; i < buildings.Count; i++)
         {
-            place.place = !place.place;
+            if(GUI.Button(new Rect(Screen.width - ((i+1) * 110), Screen.height - 110, 100, 100), buildings[i].name))
+            {
+                place.place = !place.place;
+            }
         }
     }
 
