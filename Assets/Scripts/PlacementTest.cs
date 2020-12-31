@@ -14,13 +14,18 @@ public class PlacementTest : NetworkedBehaviour
     public GameObject myPrefab;
     private Vector3 posMod;
 
+    public Vector3 getPosMod()
+    {
+        return posMod;
+    }
+
     void Update()
     {
         if(NetworkedObject.IsLocalPlayer && place)
         {
             Vector3 pos = GetComponentInChildren<Camera>().ScreenToWorldPoint(Input.mousePosition);
             posMod = new Vector3(Snapping.Snap(pos.x, gridSize), Snapping.Snap(pos.y, gridSize));
-            if (Input.GetMouseButtonDown(0) && buildingsLeft > 0)
+            if (Input.GetMouseButtonDown(0) && buildingsLeft > 0 && Physics2D.OverlapCircle(posMod, 1) == null)
             {
                 if (IsServer)
                 {
@@ -38,7 +43,7 @@ public class PlacementTest : NetworkedBehaviour
     void PlaceObject(Vector3 posi, ulong ID)
     {
         int playerResources = NetworkingManager.Singleton.GetComponent<NetworkManager>().playerList[ID].Resources;
-        if(playerResources > 0)
+        if(playerResources > 0 && Physics2D.OverlapCircle(posMod, 1) == null)
         {
             GameObject gO = Instantiate(myPrefab, posi, Quaternion.identity);
             gO.GetComponent<NetworkedObject>().Spawn(null, true); //Der Bool sagt ob das Dings beim Scenenwechsel zerstört werden soll, und das sollen Gebäude werden
@@ -49,14 +54,5 @@ public class PlacementTest : NetworkedBehaviour
         {
             print("Building could not be placed, get more cash");
         }
-    }
-
-    void OnDrawGizmos()
-    {
-        if (NetworkedObject.IsLocalPlayer && place)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(posMod, 0.1f);
-        }
-    }
+    }    
 }

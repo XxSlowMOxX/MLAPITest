@@ -18,13 +18,13 @@ public class dumbMovement : NetworkedBehaviour
             cam.AddComponent<Camera>().orthographic = true;
         }
     }
-    void Update()
+    void FixedUpdate()
     {
         if (NetworkedObject.IsLocalPlayer)
         {
-            this.transform.position += new Vector3(0, Input.GetAxis("Vertical")) * 0.05f;
-            this.transform.position += new Vector3(Input.GetAxis("Horizontal"), 0) * 0.05f;
-            //this.GetComponent<Trac>
+            this.transform.position += new Vector3(0, Input.GetAxis("Vertical")) * 0.2f;
+            this.transform.position += new Vector3(Input.GetAxis("Horizontal"), 0) * 0.2f;
+            
         }
     }
 }
