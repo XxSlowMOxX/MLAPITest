@@ -6,11 +6,12 @@ public class Building : MonoBehaviour
 {
     private float Size;
     public bool selected;
+    public Vector2 size { get; }
 
     public void setSelected(bool sel)
     {
         selected = sel;
-        GetComponentInChildren<SpriteRenderer>().gameObject.SetActive(sel);
+        transform.GetChild(0).gameObject.SetActive(sel);
     }
 
     public float getSize()

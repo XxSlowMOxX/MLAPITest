@@ -21,10 +21,11 @@ public class PlacementTest : NetworkedBehaviour
 
     void Update()
     {
-        if(NetworkedObject.IsLocalPlayer && place)
+        if(NetworkedObject.IsLocalPlayer)
         {
             Vector3 pos = GetComponentInChildren<Camera>().ScreenToWorldPoint(Input.mousePosition);
             posMod = new Vector3(Snapping.Snap(pos.x, gridSize), Snapping.Snap(pos.y, gridSize));
+            if (!place) return;
             if (Input.GetMouseButtonDown(0) && buildingsLeft > 0 && Physics2D.OverlapBox(posMod, new Vector2(1, 1), 0) == null)
             {
                 if (IsServer)
