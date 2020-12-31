@@ -24,12 +24,12 @@ public class PlacementUI : MonoBehaviour
     void OnDrawGizmos()
     {
         if (GetComponent<NetworkedObject>().IsLocalPlayer && place.place)
-        {
+        {            
             Gizmos.color = Color.green;
-            if(Physics2D.OverlapCircle(place.getPosMod(), 1) != null){
+            if(Physics2D.OverlapBox(place.getPosMod(), new Vector2(1, 1), 0) != null){
                 Gizmos.color = Color.red;
             }            
-            Gizmos.DrawSphere(place.getPosMod(), 0.1f);
+            Gizmos.DrawCube(place.getPosMod(), new Vector3(1,1,0));
         }
     }
 }
