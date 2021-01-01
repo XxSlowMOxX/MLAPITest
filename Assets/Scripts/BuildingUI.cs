@@ -42,7 +42,7 @@ public class BuildingUI : NetworkedBehaviour
     }
 
     void OnGUI()
-    {
+    {        
         if (!NetworkedObject.IsLocalPlayer) return;
         for (int i = 0; i < buildings.Count; i++)
         {
@@ -81,9 +81,23 @@ public class BuildingUI : NetworkedBehaviour
             Gizmos.color = new Color(0,1,0,0.5f);
             if(Physics2D.OverlapBox(place.getPosMod(),buildings[currentIndex].GetComponent<Building>().getSize(), 0) != null){
                 Gizmos.color = new Color(1, 0, 0, 0.5f);
-
-            }            
+            }
+            //PreviewRender();
             Gizmos.DrawCube(place.getPosMod(),buildings[currentIndex].GetComponent<Building>().getSize());            
         }
+    }
+    void PreviewRender()
+    {
+        Vector2 buildingSize = buildings[currentIndex].GetComponent<Building>().getSize();
+        Vector3 leftTopCorner = this.GetComponentInChildren<Camera>().WorldToScreenPoint(place.getPosMod() + TopLeft(buildingSize) * 0.5f);
+        Vector3 rightBottomCorner = this.GetComponentInChildren<Camera>().WorldToScreenPoint(place.getPosMod() - TopLeft(buildingSize) * 0.5f);
+        Rect imagePos = new Rect(leftTopCorner.x,Screen.height - leftTopCorner.y,(rightBottomCorner - leftTopCorner).x, (leftTopCorner - rightBottomCorner).y);
+        Texture2D tex = buildings[currentIndex].GetComponent<SpriteRenderer>().sprite.texture;
+        GUI.DrawTexture(imagePos, tex);
+    }
+
+    Vector3 TopLeft(Vector2 vec)
+    {
+        return new Vector3(-vec.x, vec.y, 0);
     }
 }

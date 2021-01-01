@@ -5,8 +5,7 @@ using UnityEngine;
 public class Building : MonoBehaviour
 {
     public bool selected;
-    [SerializeField]
-    private Vector2 size;
+    private Vector2 size = Vector2.zero;
 
     public void setSelected(bool sel)
     {
@@ -16,6 +15,13 @@ public class Building : MonoBehaviour
 
     public Vector2 getSize()
     {
-        return size;
+        if(size != Vector2.zero)
+        {
+            return size;
+        }
+        else //Calculates Size of Building
+        { 
+            return GetComponent<SpriteRenderer>().sprite.bounds.size;
+        }
     }
 }
