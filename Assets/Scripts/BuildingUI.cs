@@ -8,6 +8,7 @@ using MLAPI.Connection;
 public class BuildingUI : NetworkedBehaviour
 {
     private PlacementTest place;
+    private int currentIndex = 0;
     private List<Building> selectedBuildings = new List<Building>();
     private List<GameObject> buildings = new List<GameObject>();
 
@@ -48,6 +49,7 @@ public class BuildingUI : NetworkedBehaviour
             if(GUI.Button(new Rect(Screen.width - ((i+1) * 110), Screen.height - 110, 100, 100), buildings[i].name))
             {
                 togglePlace(i);
+                currentIndex = i;
             }
         }
     }
@@ -69,17 +71,19 @@ public class BuildingUI : NetworkedBehaviour
             selectedBuildings.Clear();
         }
         place.buildingName = buildings[index].name;
+        place.setBuildSize(buildings[currentIndex].GetComponent<Building>().getSize());
     }
-    void OnDrawGizmos()
+
+    void OnDrawGizmos() //replace with Preview Render
     {
         if (GetComponent<NetworkedObject>().IsLocalPlayer && place.place)
         {            
             Gizmos.color = new Color(0,1,0,0.5f);
-            if(Physics2D.OverlapBox(place.getPosMod(), new Vector2(1, 1), 0) != null){
+            if(Physics2D.OverlapBox(place.getPosMod(),buildings[currentIndex].GetComponent<Building>().getSize(), 0) != null){
                 Gizmos.color = new Color(1, 0, 0, 0.5f);
 
             }            
-            Gizmos.DrawCube(place.getPosMod(), new Vector3(1,1,0));
+            Gizmos.DrawCube(place.getPosMod(),buildings[currentIndex].GetComponent<Building>().getSize());            
         }
     }
 }

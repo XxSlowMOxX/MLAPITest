@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selected: 0
+  size: {x: 1, y: 1}
 --- !u!61 &5151590145511993820
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Building : MonoBehaviour
 {
-    private float Size;
     public bool selected;
-    public Vector2 size { get; }
+    [SerializeField]
+    private Vector2 size;
 
     public void setSelected(bool sel)
     {
@@ -14,8 +14,8 @@ public class Building : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(sel);
     }
 
-    public float getSize()
+    public Vector2 getSize()
     {
-        return Size;
+        return size;
     }
 }

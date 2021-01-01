@@ -15,10 +15,16 @@ public class PlacementTest : NetworkedBehaviour
     public string buildingName;
     public GameObject myPrefab;
     private Vector3 posMod;
+    private Vector2 buildSize;
 
     public Vector3 getPosMod()
     {
         return posMod;
+    }
+    public void setBuildSize(Vector2 size)
+    {
+        print("new Build Size");
+        buildSize = new Vector2(Mathf.Abs(size.x), Mathf.Abs(size.y));
     }
 
     void Update()
@@ -33,22 +39,22 @@ public class PlacementTest : NetworkedBehaviour
                 print(e);
             }            
             if (!place) return;
-            if (Input.GetMouseButtonDown(0) && buildingsLeft > 0 && Physics2D.OverlapBox(posMod, new Vector2(1, 1), 0) == null)
+            if (Input.GetMouseButtonDown(0) && buildingsLeft > 0 && Physics2D.OverlapBox(posMod, buildSize, 0) == null)
             {
                 if (IsServer)
                 {
-                    PlaceObject(posMod, 0, buildingName);
+                    PlaceObject(posMod, 0, buildingName, buildSize);
                 }
                 else
                 {
-                    InvokeServerRpc(PlaceObject, posMod, OwnerClientId, buildingName);
+                    InvokeServerRpc(PlaceObject, posMod, OwnerClientId, buildingName, buildSize);
                 }
             }
         }
     }
 
     [ServerRPC]
-    void PlaceObject(Vector3 posi, ulong ID, string objectName)
+    void PlaceObject(Vector3 posi, ulong ID, string objectName, Vector2 boundingBox)
     {
         int playerResources = NetworkingManager.Singleton.GetComponent<NetworkManager>().playerList[ID].Resources;
         if(playerResources > 0 && Physics2D.OverlapBox(posi, new Vector2(1, 1), 0) == null)
@@ -60,7 +66,7 @@ public class PlacementTest : NetworkedBehaviour
         }
         else
         {
-            print(posi);
+            print("Object could not be placed");
         }
     }    
 }
