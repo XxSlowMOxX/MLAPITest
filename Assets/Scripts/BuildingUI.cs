@@ -5,7 +5,7 @@ using UnityEditor;
 using MLAPI;
 using MLAPI.Connection;
 
-public class BuildingUI : MonoBehaviour
+public class BuildingUI : NetworkedBehaviour
 {
     private PlacementTest place;
     private List<Building> selectedBuildings = new List<Building>();
@@ -19,9 +19,9 @@ public class BuildingUI : MonoBehaviour
 
     void Update()
     {
+        if (!NetworkedObject.IsLocalPlayer) return;
         if(!place.place && Input.GetMouseButtonDown(0))
         {
-            print("Hit");
             Building build;
             Collider2D col = Physics2D.OverlapCircle(place.getPosMod(), 1);
             if(col != null && col.gameObject.TryGetComponent<Building>(out build))
@@ -33,8 +33,7 @@ public class BuildingUI : MonoBehaviour
                         item.setSelected(false);
                     }
                     selectedBuildings.Clear();
-                }            
-                print("2Hit");
+                }
                 build.setSelected(true);
                 selectedBuildings.Add(build);
             }
@@ -43,15 +42,34 @@ public class BuildingUI : MonoBehaviour
 
     void OnGUI()
     {
+        if (!NetworkedObject.IsLocalPlayer) return;
         for (int i = 0; i < buildings.Count; i++)
         {
             if(GUI.Button(new Rect(Screen.width - ((i+1) * 110), Screen.height - 110, 100, 100), buildings[i].name))
             {
-                place.place = !place.place;
+                togglePlace(i);
             }
         }
     }
-
+    void togglePlace(int index)
+    {
+        if (place.place)
+        {
+            //Wechsel von Platzieren auf nix Platzieren
+            place.place = false;
+        }
+        else
+        {
+            //Wechsel von auswählen auf platzieren
+            place.place = true;
+            foreach(Building build in selectedBuildings)
+            {
+                build.setSelected(false);
+            }
+            selectedBuildings.Clear();
+        }
+        place.buildingName = buildings[index].name;
+    }
     void OnDrawGizmos()
     {
         if (GetComponent<NetworkedObject>().IsLocalPlayer && place.place)

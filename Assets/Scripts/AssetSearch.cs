@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using MLAPI;
 
 /// <summary>
@@ -16,26 +15,26 @@ public static class AssetSearch
     /// <returns>Returns all Building Prefabs as Gameobjects</returns>
     public static List<GameObject> getBuildings(bool networkedRequired = true){
         List<GameObject> buildings = new List<GameObject>();
-        string[] gOs = AssetDatabase.FindAssets("t:gameObject");
-        foreach(string gO in gOs)
-        {
-            GameObject posBuild = (GameObject) AssetDatabase.LoadAssetAtPath(AssetDatabase.GUIDToAssetPath(gO), typeof(GameObject));
+        GameObject[] gOs = Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[];
+        foreach(GameObject gO in gOs)
+        {            
             Component comp;
-            if(posBuild.TryGetComponent(typeof(Building),out comp))
+            if(gO.TryGetComponent(typeof(Building),out comp))
             {
                 if (networkedRequired)
                 {
-                    if(posBuild.TryGetComponent(typeof(NetworkedObject), out comp))
+                    if(gO.TryGetComponent(typeof(NetworkedObject), out comp))
                     {
-                        buildings.Add(posBuild);
+                        buildings.Add(gO);
                     }
                 }
                 else
                 {
-                    buildings.Add(posBuild);
+                    buildings.Add(gO);
                 }
             }
         }
+        Debug.Log("returned " + buildings.Count.ToString() + " Buildings");
         return buildings;
     }
 }

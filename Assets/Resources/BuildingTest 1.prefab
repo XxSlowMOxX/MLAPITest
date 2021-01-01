@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5151590145511993820}
   - component: {fileID: 984685776253431847}
   m_Layer: 0
-  m_Name: BuildingTest
+  m_Name: BuildingTest 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.16744852, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -100,8 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NetworkedInstanceId: 0
-  PrefabHash: 3435534355207551845
-  PrefabHashGenerator: BuildingTest
+  PrefabHash: 14969627404339522734
+  PrefabHashGenerator: BuildingTest1
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
 --- !u!114 &3809237633640991327
