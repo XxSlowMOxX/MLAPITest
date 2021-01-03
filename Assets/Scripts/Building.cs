@@ -47,7 +47,7 @@ public class Building : NetworkedBehaviour
         }
     }
 
-    [ServerRPC]
+    [ServerRPC(RequireOwnership = false)]
     void SpawnUnit(int index)
     {
         Vector3 size3 = getSize();
