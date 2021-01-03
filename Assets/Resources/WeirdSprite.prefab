@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8950599655243247296}
   - component: {fileID: 1425347115597848859}
   - component: {fileID: 68261747744614657}
-  - component: {fileID: 650528893050854247}
+  - component: {fileID: 3319418805671549205}
   m_Layer: 0
   m_Name: WeirdSprite
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 1823613927596844026}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -193,6 +193,7 @@ MonoBehaviour:
   place: 0
   gridSize: 1
   buildingsLeft: 1
+  buildingName: 
   myPrefab: {fileID: 2608052528253481164, guid: 08f998c1c4e970c44a44de56e3ec580f, type: 3}
 --- !u!58 &68261747744614657
 CircleCollider2D:
@@ -210,7 +211,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.1
---- !u!50 &650528893050854247
+--- !u!50 &3319418805671549205
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0

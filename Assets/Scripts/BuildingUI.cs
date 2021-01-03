@@ -52,7 +52,22 @@ public class BuildingUI : NetworkedBehaviour
                 currentIndex = i;
             }
         }
+        if (place.place) {
+            PreviewRender(Physics2D.OverlapBox(place.getPosMod(), buildings[currentIndex].GetComponent<Building>().getSize(), 0) != null);
+        }
+        else {
+            if(selectedBuildings.Count == 1) {
+                int i = 0;
+                foreach(GameObject unit in selectedBuildings[0].GetComponent<Building>().buildableUnits) {
+                    if (GUI.Button(new Rect(Screen.width - ((i + 1) * 110), Screen.height - 220, 100, 100), unit.name)) {
+                        selectedBuildings[0].BuildUnit(i);
+                    }
+                    i++;
+                }
+            }
+        }
     }
+
     void togglePlace(int index)
     {
         if (place.place)
@@ -74,26 +89,23 @@ public class BuildingUI : NetworkedBehaviour
         place.setBuildSize(buildings[currentIndex].GetComponent<Building>().getSize());
     }
 
-    void OnDrawGizmos() //replace with Preview Render
-    {
-        if (GetComponent<NetworkedObject>().IsLocalPlayer && place.place)
-        {            
-            Gizmos.color = new Color(0,1,0,0.5f);
-            if(Physics2D.OverlapBox(place.getPosMod(),buildings[currentIndex].GetComponent<Building>().getSize(), 0) != null){
-                Gizmos.color = new Color(1, 0, 0, 0.5f);
-            }
-            //PreviewRender();
-            Gizmos.DrawCube(place.getPosMod(),buildings[currentIndex].GetComponent<Building>().getSize());            
-        }
-    }
-    void PreviewRender()
+    void PreviewRender(bool possible)
     {
         Vector2 buildingSize = buildings[currentIndex].GetComponent<Building>().getSize();
         Vector3 leftTopCorner = this.GetComponentInChildren<Camera>().WorldToScreenPoint(place.getPosMod() + TopLeft(buildingSize) * 0.5f);
         Vector3 rightBottomCorner = this.GetComponentInChildren<Camera>().WorldToScreenPoint(place.getPosMod() - TopLeft(buildingSize) * 0.5f);
         Rect imagePos = new Rect(leftTopCorner.x,Screen.height - leftTopCorner.y,(rightBottomCorner - leftTopCorner).x, (leftTopCorner - rightBottomCorner).y);
         Texture2D tex = buildings[currentIndex].GetComponent<SpriteRenderer>().sprite.texture;
+        if (!possible)
+        {
+            GUI.color = new Color(0, 1, 0, 0.5f);
+        }
+        else
+        {
+            GUI.color = new Color(1, 0, 0, 0.5f);
+        }
         GUI.DrawTexture(imagePos, tex);
+        GUI.color = Color.white;
     }
 
     Vector3 TopLeft(Vector2 vec)

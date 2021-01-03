@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MLAPI;
+using MLAPI.Messaging;
 
-public class Building : MonoBehaviour
+public class Building : NetworkedBehaviour
 {
     public bool selected;
     private Vector2 size = Vector2.zero;
+    public GameObject[] buildableUnits;
 
     public void setSelected(bool sel)
     {
@@ -23,5 +26,32 @@ public class Building : MonoBehaviour
         { 
             return GetComponent<SpriteRenderer>().sprite.bounds.size;
         }
+    }
+
+    public bool BuildUnit(int index)
+    {
+        StartCoroutine(spawnTimer(index));
+        return true;
+    }
+
+    IEnumerator spawnTimer(int index)
+    {
+        yield return new WaitForSecondsRealtime(buildableUnits[index].GetComponent<Unit>().buildTime);
+        if (IsServer)
+        {
+            SpawnUnit(index);
+        }
+        else
+        {
+            InvokeServerRpc(SpawnUnit, index);
+        }
+    }
+
+    [ServerRPC]
+    void SpawnUnit(int index)
+    {
+        Vector3 size3 = getSize();
+        GameObject gO = Instantiate(buildableUnits[index], this.transform.position + size3, Quaternion.identity);
+        gO.GetComponent<NetworkedObject>().Spawn(null, true);
     }
 }
