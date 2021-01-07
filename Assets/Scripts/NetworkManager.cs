@@ -14,20 +14,25 @@ public class NetworkManager : NetworkedBehaviour
     private Scene menuScene;
     [SerializeField]
     public Dictionary<ulong, Player> playerList = new Dictionary<ulong, Player>();
+    private SteamMan steam;
+    private Server myServer;
 
     void Start()
     {
         menuScene = SceneManager.GetActiveScene();
+        steam = GetComponent<SteamMan>();
     }
 
     public void HostServer()
     {
+        myServer = new Server(10);
         print("Host Server Called");
         NetworkingManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
         NetworkingManager.Singleton.OnClientConnectedCallback += ConnectCallback;
         NetworkingManager.Singleton.StartHost();
         playerList.Add(GetComponent<UnetTransport>().ServerClientId, new Player((Teams)(connectedClientNo % 2), GetComponent<UnetTransport>().ServerClientId));
         connectedClientNo += 1;
+        steam.HostLobby(myServer.maxClients);
     }
 
     public void StartClient(string adress, string port)
@@ -57,5 +62,14 @@ public class NetworkManager : NetworkedBehaviour
         {
             print("Connection refused because Scene was not Sample Scene");
         }        
+    }
+}
+
+public class Server
+{
+    public int maxClients;
+    public Server(int clCount)
+    {
+        maxClients = clCount;
     }
 }
